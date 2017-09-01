@@ -35,7 +35,7 @@ endif
 let s:saved_cpo = &cpo
 set cpo&vim
 
-let s:previewer = ''
+let s:previewer = 'zathura'
 
 " Run a shell command in background
 function! s:RunInBackground(cmd)
@@ -153,6 +153,9 @@ EEOOFF
                 \       l:root_file
                 " lcd can be avoided thanks to root_dir in TEXINPUTS
 
+    " These are my own modifications
+    let l:tmp_escaped_root = l:tmp_root_dir . '/' . expand('%:t:r')
+
     silent call system(b:livepreview_buf_data['run_cmd'])
     if v:shell_error != 0
         echo 'Failed to compile'
@@ -176,7 +179,7 @@ EEOOFF
                 \               'TEXINPUTS=' . l:tmp_root_dir
                 \                            . ':' . b:livepreview_buf_data['root_dir']
                 \                            . ': ' .
-                \       'bibtex ' . l:tmp_root_dir . '/*.aux' .
+                \       'biber ' . l:tmp_escaped_root .
                 \ ' && ' .
                 \       b:livepreview_buf_data['run_cmd']
 
@@ -192,6 +195,7 @@ EEOOFF
 
     lcd -
 
+    echo s:previewer . ' ' . l:tmp_out_file
     let b:livepreview_buf_data['preview_running'] = 1
 endfunction
 

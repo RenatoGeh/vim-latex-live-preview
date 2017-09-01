@@ -1,3 +1,17 @@
+Achtung!
+========
+
+This is a modified version of vim-latex-live-preview to add
+functionality that was either missing or broken for my setup.
+
+The changes in the code are basically hardcoding `s:previewer` that for
+some reason wasn't working as intended with my
+`g:livepreview_previewer`. It is hardcoded to `zathura`. The other
+change is adding support for biber (replacing `bibtex` altogether).
+
+The content below is the original README body.
+
+
 A Vim Plugin for Lively Previewing LaTeX PDF Output
 ===================================================
 
